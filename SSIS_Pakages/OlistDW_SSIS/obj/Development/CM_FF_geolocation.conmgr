@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="CM_FF_geolocation"
+  DTS:DTSID="{19B247F7-5F42-4B43-8E89-D25CFCF9E4D7}"
+  DTS:CreationName="FLATFILE">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:Format="Delimited"
+      DTS:LocaleID="1033"
+      DTS:HeaderRowDelimiter="_x000D__x000A_"
+      DTS:ColumnNamesInFirstDataRow="True"
+      DTS:RowDelimiter=""
+      DTS:TextQualifier="_x0022_"
+      DTS:CodePage="65001"
+      DTS:ConnectionString="D:\Nhom6_DW\Data_Source\olist_geolocation_dataset.csv">
+      <DTS:FlatFileColumns>
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="10"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="geolocation_zip_code_prefix"
+          DTS:DTSID="{0BDE86B4-0F9F-4D4B-BCF7-7F2D45C38CFA}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="30"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="geolocation_lat"
+          DTS:DTSID="{63BAF03A-C04C-47EC-A9B6-E61C4FCFD802}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="30"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="geolocation_lng"
+          DTS:DTSID="{7F409F1C-4756-4423-9787-A919A9F6711D}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x002C_"
+          DTS:MaximumWidth="100"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="geolocation_city"
+          DTS:DTSID="{E25B8DCF-3BE4-4AEE-B008-0D5F0BCC1FE3}"
+          DTS:CreationName="" />
+        <DTS:FlatFileColumn
+          DTS:ColumnType="Delimited"
+          DTS:ColumnDelimiter="_x000D__x000A_"
+          DTS:MaximumWidth="10"
+          DTS:DataType="130"
+          DTS:TextQualified="True"
+          DTS:ObjectName="geolocation_state"
+          DTS:DTSID="{ED0D9146-F3D8-4A67-8648-50EE9042C45F}"
+          DTS:CreationName="" />
+      </DTS:FlatFileColumns>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
