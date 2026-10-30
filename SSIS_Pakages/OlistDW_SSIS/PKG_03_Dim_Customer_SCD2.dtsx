@@ -11,8 +11,8 @@
   DTS:LocaleID="1066"
   DTS:ObjectName="PKG_03_Dim_Customer_SCD2"
   DTS:PackageType="5"
-  DTS:VersionBuild="15"
-  DTS:VersionGUID="{D394182F-B79A-401E-95B5-7BC50D09C7B0}">
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{9DF25047-101F-447A-BEDF-6EF55B684684}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -144,6 +144,118 @@
               </outputs>
             </component>
             <component
+              refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="CMD - Update geo_key"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"> UPDATE dwh.dim_customer SET geo_key = ? WHERE customer_key = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1258</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Connections[OleDbConnection]"
+                  connectionManagerID="{08AD23AF-71F0-4600-AA0D-365011B9EC71}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[CM_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input].Columns[geo_key]"
+                      cachedDataType="i4"
+                      cachedName="geo_key"
+                      externalMetadataColumnId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[geo_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input].Columns[old_customer_key]"
+                      cachedDataType="i4"
+                      cachedName="old_customer_key"
+                      externalMetadataColumnId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_customer_key]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="i4"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="i4"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
               refId="Package\DFT - Load Dim Customer SCD2\CS - Changed"
               componentClassID="Microsoft.ConditionalSplit"
               contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
@@ -169,27 +281,27 @@
                       cachedName="state"
                       lineageId="Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[state]" />
                     <inputColumn
-                      refId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input].Columns[geo_key]"
-                      cachedDataType="i4"
-                      cachedName="geo_key"
-                      lineageId="Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[geo_key]" />
-                    <inputColumn
                       refId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input].Columns[old_state]"
                       cachedDataType="wstr"
                       cachedLength="10"
                       cachedName="old_state"
                       lineageId="Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_state]" />
                     <inputColumn
-                      refId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input].Columns[old_geo_key]"
-                      cachedDataType="i4"
-                      cachedName="old_geo_key"
-                      lineageId="Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_geo_key]" />
-                    <inputColumn
                       refId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input].Columns[old_city]"
                       cachedDataType="wstr"
                       cachedLength="100"
                       cachedName="old_city"
                       lineageId="Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_city]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input].Columns[geo_key]"
+                      cachedDataType="i4"
+                      cachedName="geo_key"
+                      lineageId="Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[geo_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input].Columns[old_geo_key]"
+                      cachedDataType="i4"
+                      cachedName="old_geo_key"
+                      lineageId="Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_geo_key]" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -209,17 +321,45 @@
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">([ISNULL](#{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[city]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[city]}) != ([ISNULL](#{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_city]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_city]}) || ([ISNULL](#{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[state]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[state]}) != ([ISNULL](#{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_state]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_state]}) || #{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[geo_key]} != #{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_geo_key]}</property>
+                      name="Expression">([ISNULL](#{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[city]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[city]}) != ([ISNULL](#{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_city]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_city]}) || ([ISNULL](#{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[state]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[state]}) != ([ISNULL](#{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_state]}) ? "" : #{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_state]})</property>
                     <property
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the friendly version of the expression. This expression version uses column names."
                       expressionType="Notify"
-                      name="FriendlyExpression">(ISNULL(city) ? "" : city) != (ISNULL(old_city) ? "" : old_city) || (ISNULL(state) ? "" : state) != (ISNULL(old_state) ? "" : old_state) || geo_key != old_geo_key</property>
+                      name="FriendlyExpression">(ISNULL(city) ? "" : city) != (ISNULL(old_city) ? "" : old_city) || (ISNULL(state) ? "" : state) != (ISNULL(old_state) ? "" : old_state)</property>
                     <property
                       dataType="System.Int32"
                       description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
                       name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Outputs[GeoOnly]"
+                  description="Output 2 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="GeoOnly"
+                  synchronousInputId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT - Load Dim Customer SCD2\SRC - Staging Customer.Outputs[OLE DB Source Output].Columns[geo_key]} != #{Package\DFT - Load Dim Customer SCD2\LKP - Current Customer.Outputs[Lookup Match Output].Columns[old_geo_key]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">geo_key != old_geo_key</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">1</property>
                   </properties>
                   <externalMetadataColumns />
                 </output>
@@ -1233,6 +1373,11 @@ WHERE x.rn = 1;</property>
               name="Derived Column Output"
               startId="Package\DFT - Load Dim Customer SCD2\DC - change_ts.Outputs[Derived Column Output]" />
             <path
+              refId="Package\DFT - Load Dim Customer SCD2.Paths[GeoOnly]"
+              endId="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key.Inputs[OLE DB Command Input]"
+              name="GeoOnly"
+              startId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Outputs[GeoOnly]" />
+            <path
               refId="Package\DFT - Load Dim Customer SCD2.Paths[Lookup Match Output]"
               endId="Package\DFT - Load Dim Customer SCD2\CS - Changed.Inputs[Conditional Split Input]"
               name="Lookup Match Output"
@@ -1261,7 +1406,34 @@ WHERE x.rn = 1;</property>
         </pipeline>
       </DTS:ObjectData>
     </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Seed customer history"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9F59F273-98D2-4F0B-807B-7180C53DB3AE}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Seed customer history"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{08AD23AF-71F0-4600-AA0D-365011B9EC71}"
+          SQLTask:SqlStatementSource="IF NOT EXISTS (SELECT 1 FROM dwh.dim_customer WHERE customer_key &lt;&gt; -1)&#xA;BEGIN&#xA;    ;WITH ord AS (&#xA;        SELECT c.customer_unique_id, c.customer_id, c.customer_city, c.customer_state,&#xA;               c.customer_zip_code_prefix,&#xA;               TRY_CONVERT(DATETIME2(0), o.order_purchase_timestamp) AS purchase_ts&#xA;        FROM staging.stg_customers c&#xA;        JOIN staging.stg_orders o ON o.customer_id = c.customer_id&#xA;    ),&#xA;    flagged AS (&#xA;        SELECT *,&#xA;               CASE WHEN LAG(customer_id) OVER (PARTITION BY customer_unique_id ORDER BY purchase_ts, customer_id) IS NOT NULL&#xA;                     AND ISNULL(LAG(customer_city)  OVER (PARTITION BY customer_unique_id ORDER BY purchase_ts, customer_id), N'#') = ISNULL(customer_city, N'#')&#xA;                     AND ISNULL(LAG(customer_state) OVER (PARTITION BY customer_unique_id ORDER BY purchase_ts, customer_id), N'#') = ISNULL(customer_state, N'#')&#xA;                    THEN 0 ELSE 1 END AS is_new&#xA;        FROM ord&#xA;    ),&#xA;    grp AS (&#xA;        SELECT *, SUM(is_new) OVER (PARTITION BY customer_unique_id&#xA;                                    ORDER BY purchase_ts, customer_id&#xA;                                    ROWS UNBOUNDED PRECEDING) AS seg_no&#xA;        FROM flagged&#xA;    ),&#xA;    seg AS (&#xA;        SELECT customer_unique_id, seg_no, customer_city, customer_state, customer_zip_code_prefix,&#xA;               MIN(purchase_ts) OVER (PARTITION BY customer_unique_id, seg_no) AS first_ts,&#xA;               ROW_NUMBER() OVER (PARTITION BY customer_unique_id, seg_no&#xA;                                  ORDER BY purchase_ts DESC, customer_id) AS rn&#xA;        FROM grp&#xA;    ),&#xA;    ver AS (&#xA;        SELECT v.customer_unique_id, v.seg_no, v.customer_city, v.customer_state, v.first_ts,&#xA;               ISNULL(geo.geo_key, -1) AS geo_key&#xA;        FROM seg v&#xA;        LEFT JOIN dwh.dim_geolocation geo ON geo.zip_code_prefix = v.customer_zip_code_prefix&#xA;        WHERE v.rn = 1&#xA;    )&#xA;    INSERT INTO dwh.dim_customer&#xA;        (customer_unique_id, city, state, customer_region, geo_key, effective_from, effective_to, is_current)&#xA;    SELECT customer_unique_id, customer_city, customer_state,&#xA;           dbo.fn_state_region(customer_state), geo_key,&#xA;           CASE WHEN seg_no = 1 THEN CAST('1900-01-01' AS DATETIME2(0)) ELSE first_ts END,&#xA;           ISNULL(LEAD(first_ts) OVER (PARTITION BY customer_unique_id ORDER BY seg_no),&#xA;                  CAST('9999-12-31' AS DATETIME2(0))),&#xA;           CASE WHEN LEAD(first_ts) OVER (PARTITION BY customer_unique_id ORDER BY seg_no) IS NULL&#xA;                THEN 1 ELSE 0 END&#xA;    FROM ver;&#xA;END" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
   </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{DD48158E-EF46-4B78-BDFE-0003E261BED7}"
+      DTS:From="Package\SQL - Seed customer history"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Load Dim Customer SCD2" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -1273,11 +1445,37 @@ WHERE x.rn = 1;</property>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="229.6,41.6"
           Id="Package\DFT - Load Dim Customer SCD2"
-          TopLeft="137.142857434798,67.2941175880729" />
+          TopLeft="136.428571718992,231.705882149842" />
+        <NodeLayout
+          Size="212.8,41.6"
+          Id="Package\SQL - Seed customer history"
+          TopLeft="147.857143171892,150.647058691481" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="252.742857445442,192.247058691481">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.4588234583606"
+              Start="0,0"
+              End="0,31.9588234583606">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.9588234583606" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1294,32 +1492,34 @@ WHERE x.rn = 1;</property>
           Size="189.6,41.6"
           Id="Package\DFT - Load Dim Customer SCD2\LKP - Current Customer"
           TopLeft="213.571429026066,248.52941154686" />
-        <EdgeLayout
-          Id="Package\DFT - Load Dim Customer SCD2.Paths[OLE DB Source Output]"
-          TopLeft="309.485714741872,208.305882206817">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="0,40.2235293400431"
-              Start="0,0"
-              End="0,32.7235293400431">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,32.7235293400431" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="142.4,41.6"
+          Id="Package\DFT - Load Dim Customer SCD2\CS - Changed"
+          TopLeft="619.642858461914,247.573529194757" />
         <NodeLayout
           Size="170.4,41.6"
           Id="Package\DFT - Load Dim Customer SCD2\DC - effective_from"
           TopLeft="226.428571910579,323.47058795176" />
+        <NodeLayout
+          Size="175.2,41.6"
+          Id="Package\DFT - Load Dim Customer SCD2\DST - dim_customer"
+          TopLeft="230.00000048961,389.99999965815" />
+        <NodeLayout
+          Size="124,41.6"
+          Id="Package\DFT - Load Dim Customer SCD2\MC - Split"
+          TopLeft="632.142858488523,413.897058460732" />
+        <NodeLayout
+          Size="174.4,41.6"
+          Id="Package\DFT - Load Dim Customer SCD2\CMD - Close old row"
+          TopLeft="611.607144159094,508.52941131896" />
+        <NodeLayout
+          Size="150.4,41.6"
+          Id="Package\DFT - Load Dim Customer SCD2\DC - change_ts"
+          TopLeft="620.535715606672,334.558823236158" />
+        <NodeLayout
+          Size="234.4,41.6"
+          Id="Package\DFT - Load Dim Customer SCD2\DST - dim_customer new version"
+          TopLeft="586.734695126555,637.436974231177" />
         <EdgeLayout
           Id="Package\DFT - Load Dim Customer SCD2.Paths[Lookup No Match Output]"
           TopLeft="310.000000468322,290.12941154686">
@@ -1344,10 +1544,52 @@ WHERE x.rn = 1;</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="175.2,41.6"
-          Id="Package\DFT - Load Dim Customer SCD2\DST - dim_customer"
-          TopLeft="230.00000048961,389.99999965815" />
+        <EdgeLayout
+          Id="Package\DFT - Load Dim Customer SCD2.Paths[Lookup Match Output]"
+          TopLeft="403.171429026066,268.851470370808">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="216.471429435848,0"
+              Start="0,0"
+              End="208.971429435848,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="208.971429435848,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="56.294327999174,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Dim Customer SCD2.Paths[Derived Column Output1]"
+          TopLeft="694.939287047598,376.158823236158">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.7382352245745"
+              Start="0,0"
+              End="0,30.2382352245745">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.2382352245745" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT - Load Dim Customer SCD2.Paths[Derived Column Output]"
           TopLeft="314.614286200094,365.07058795176">
@@ -1370,38 +1612,6 @@ WHERE x.rn = 1;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="142.4,41.6"
-          Id="Package\DFT - Load Dim Customer SCD2\CS - Changed"
-          TopLeft="619.642858461914,247.573529194757" />
-        <EdgeLayout
-          Id="Package\DFT - Load Dim Customer SCD2.Paths[Lookup Match Output]"
-          TopLeft="403.171429026066,268.851470370808">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="216.471429435848,0"
-              Start="0,0"
-              End="208.971429435848,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="208.971429435848,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="56.2943279991741,5,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <NodeLayout
-          Size="150.4,41.6"
-          Id="Package\DFT - Load Dim Customer SCD2\DC - change_ts"
-          TopLeft="620.535715606672,334.558823236158" />
         <EdgeLayout
           Id="Package\DFT - Load Dim Customer SCD2.Paths[Changed]"
           TopLeft="693.289287034293,289.173529194757">
@@ -1426,24 +1636,20 @@ WHERE x.rn = 1;</property>
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="124,41.6"
-          Id="Package\DFT - Load Dim Customer SCD2\MC - Split"
-          TopLeft="632.142858488523,413.897058460732" />
         <EdgeLayout
-          Id="Package\DFT - Load Dim Customer SCD2.Paths[Derived Column Output1]"
-          TopLeft="694.939287047598,376.158823236158">
+          Id="Package\DFT - Load Dim Customer SCD2.Paths[OLE DB Source Output]"
+          TopLeft="309.485714741872,208.305882206817">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,37.7382352245745"
+              EndConnector="0,40.2235293400431"
               Start="0,0"
-              End="0,30.2382352245745">
+              End="0,32.7235293400431">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,30.2382352245745" />
+                    End="0,32.7235293400431" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1452,10 +1658,28 @@ WHERE x.rn = 1;</property>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="174.4,41.6"
-          Id="Package\DFT - Load Dim Customer SCD2\CMD - Close old row"
-          TopLeft="611.607144159094,508.52941131896" />
+        <EdgeLayout
+          Id="Package\DFT - Load Dim Customer SCD2.Paths[OLE DB Command Output]"
+          TopLeft="701.370919642824,550.12941131896">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,87.3075629122176"
+              Start="0,0"
+              End="0,79.8075629122176">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,79.8075629122176" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT - Load Dim Customer SCD2.Paths[Multicast Output 1]"
           TopLeft="696.475001323809,455.497058460732">
@@ -1479,29 +1703,31 @@ WHERE x.rn = 1;</property>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <NodeLayout
-          Size="234.4,41.6"
-          Id="Package\DFT - Load Dim Customer SCD2\DST - dim_customer new version"
-          TopLeft="586.734695126555,637.436974231177" />
+          Size="187.2,41.6"
+          Id="Package\DFT - Load Dim Customer SCD2\CMD - Update geo_key"
+          TopLeft="836.60714463806,245.338235167599" />
         <EdgeLayout
-          Id="Package\DFT - Load Dim Customer SCD2.Paths[OLE DB Command Output]"
-          TopLeft="701.370919642824,550.12941131896">
+          Id="Package\DFT - Load Dim Customer SCD2.Paths[GeoOnly]"
+          TopLeft="762.042858461914,267.255882181178">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,87.3075629122176"
+              EndConnector="74.564286176146,0"
               Start="0,0"
-              End="0,79.8075629122176">
+              End="67.064286176146,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,79.8075629122176" />
+                    End="67.064286176146,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="14.062689963073,5,38.93890625,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -1521,7 +1747,7 @@ WHERE x.rn = 1;</property>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -1531,7 +1757,7 @@ WHERE x.rn = 1;</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
