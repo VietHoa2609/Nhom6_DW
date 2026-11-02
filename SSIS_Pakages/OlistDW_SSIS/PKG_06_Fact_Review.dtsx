@@ -1,0 +1,58 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/3/2026 2:49:45 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-26R2SQF"
+  DTS:CreatorName="DESKTOP-26R2SQF\tobii"
+  DTS:DTSID="{F65F5DDE-5B0C-4DDC-85C3-092B19039284}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PKG_06_Fact_Review"
+  DTS:PackageType="5"
+  DTS:VersionBuild="4"
+  DTS:VersionGUID="{07C3BCFE-D73B-4B1D-8DFD-2409F531D419}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQL - MERGE fact_review"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A6818B96-3E48-4A6C-8BAB-55A64A780A7D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - MERGE fact_review"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{08AD23AF-71F0-4600-AA0D-365011B9EC71}"
+          SQLTask:SqlStatementSource=";WITH rv AS (&#xA;    SELECT r.order_id, r.review_id,&#xA;           TRY_CAST(r.review_score AS INT) AS review_score,&#xA;           TRY_CAST(r.review_creation_date AS DATE) AS creation_date,&#xA;           CASE WHEN NULLIF(LTRIM(RTRIM(r.review_comment_message)),'') IS NULL THEN 0 ELSE 1 END AS has_comment,&#xA;           ROW_NUMBER() OVER (PARTITION BY r.order_id&#xA;               ORDER BY TRY_CAST(r.review_answer_timestamp AS DATETIME2) DESC,&#xA;                        TRY_CAST(r.review_creation_date   AS DATETIME2) DESC,&#xA;                        r.review_id DESC) AS rn&#xA;    FROM staging.stg_order_reviews r&#xA;    WHERE TRY_CAST(r.review_score AS INT) BETWEEN 1 AND 5&#xA;),&#xA;src AS (&#xA;    SELECT rv.order_id, rv.review_id, rv.review_score,&#xA;           ISNULL(dc.customer_key, -1) AS customer_key,&#xA;           ISNULL(CONVERT(INT, CONVERT(CHAR(8), rv.creation_date, 112)), -1) AS review_date_key,&#xA;           ISNULL(rc.review_category_key, -1) AS review_category_key&#xA;    FROM rv&#xA;    JOIN staging.stg_orders    o ON o.order_id = rv.order_id&#xA;    JOIN staging.stg_customers c ON c.customer_id = o.customer_id&#xA;    LEFT JOIN dwh.dim_customer dc&#xA;           ON dc.customer_unique_id = c.customer_unique_id&#xA;          AND TRY_CAST(o.order_purchase_timestamp AS DATE) &gt;= dc.effective_from&#xA;          AND TRY_CAST(o.order_purchase_timestamp AS DATE) &lt;  dc.effective_to&#xA;    LEFT JOIN dwh.dim_review_category rc&#xA;           ON rc.score_bucket = CASE WHEN rv.review_score &lt;= 2 THEN N'1-2 sao'&#xA;                                     WHEN rv.review_score  = 3 THEN N'3 sao'&#xA;                                     ELSE N'4-5 sao' END&#xA;          AND rc.has_comment  = rv.has_comment&#xA;    WHERE rv.rn = 1&#xA;)&#xA;MERGE dwh.fact_review AS t&#xA;USING src AS s ON t.order_id = s.order_id&#xA;WHEN MATCHED THEN UPDATE SET&#xA;     t.review_id = s.review_id, t.customer_key = s.customer_key,&#xA;     t.review_date_key = s.review_date_key,&#xA;     t.review_category_key = s.review_category_key, t.review_score = s.review_score&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;     INSERT (order_id, review_id, customer_key, review_date_key, review_category_key, review_score)&#xA;     VALUES (s.order_id, s.review_id, s.customer_key, s.review_date_key, s.review_category_key, s.review_score);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="199.2,41.6"
+          Id="Package\SQL - MERGE fact_review"
+          TopLeft="385.71428653537,65.7647058247076" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
