@@ -2,10 +2,15 @@
 <BuildLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <ProjectInfo>
     <Name>OlistDW_SSIS</Name>
-    <LastWriteTime>2026-10-10T07:02:11.8079743Z</LastWriteTime>
+    <LastWriteTime>2026-11-03T17:13:24.1953206Z</LastWriteTime>
     <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
   </ProjectInfo>
   <LastBuildInfos>
+    <ProjectBuildItemInfo>
+      <Name>Master.dtsx</Name>
+      <LastWriteTime>2026-11-03T17:24:44.5990183Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
     <ProjectBuildItemInfo>
       <Name>PKG_01_Staging.dtsx</Name>
       <LastWriteTime>2026-10-10T05:47:22.7806839Z</LastWriteTime>
@@ -14,6 +19,36 @@
     <ProjectBuildItemInfo>
       <Name>PKG_02_Dim_SCD1.dtsx</Name>
       <LastWriteTime>2026-10-10T08:03:19.5269907Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PKG_03_Dim_Customer_SCD2.dtsx</Name>
+      <LastWriteTime>2026-11-03T16:40:05.5638156Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PKG_04_Fact_OrderItem.dtsx</Name>
+      <LastWriteTime>2026-11-03T16:40:05.5638156Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PKG_05_Fact_OrderFulfillment.dtsx</Name>
+      <LastWriteTime>2026-11-03T18:14:36.8475783Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PKG_06_Fact_Review.dtsx</Name>
+      <LastWriteTime>2026-11-03T16:40:05.5673179Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PKG_07_Fact_SellerRoute_Monthly.dtsx</Name>
+      <LastWriteTime>2026-11-03T16:40:05.5693258Z</LastWriteTime>
+      <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
+    </ProjectBuildItemInfo>
+    <ProjectBuildItemInfo>
+      <Name>PKG_08_Fact_CustomerSegment_Monthly.dtsx</Name>
+      <LastWriteTime>2026-11-03T16:40:05.5693258Z</LastWriteTime>
       <LastKnownProtectionLevel>EncryptSensitiveWithUserKey</LastKnownProtectionLevel>
     </ProjectBuildItemInfo>
   </LastBuildInfos>

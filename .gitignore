@@ -4,3 +4,24 @@
 
 /SSIS_Pakages/OlistDW_SSIS/.vs/OlistDW_SSIS.slnx/v18
 /SSIS_Pakages/OlistDW_SSIS/.vs/OlistDW_SSIS.slnx/FileContentIndex
+
+# --- BỔ SUNG THÊM CHO DỰ ÁN SSIS & VISUAL STUDIO ---
+
+# Thư mục build rác của Visual Studio
+[Bb]in/
+[Oo]bj/
+.vs/
+
+# Các tệp cấu hình cá nhân của SSIS (thường chứa connection string, password máy cá nhân)
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# Các tệp log chạy gói ETL
+*.log
+
+# Tuyệt đối không đưa các tệp Backup Database nặng vào Git (nên lưu ở Drive riêng)
+*.bak
+*.mdf
+*.ldf

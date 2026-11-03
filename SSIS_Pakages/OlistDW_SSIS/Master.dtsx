@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Master"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{881D62EE-C64A-4091-A295-D1D5C180DEE1}">
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{5E26AF8D-1FD3-4F2E-BF23-D2A655135973}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -64,7 +64,7 @@
       <DTS:ObjectData>
         <ExecutePackageTask>
           <UseProjectReference>True</UseProjectReference>
-          <PackageName>PKG_03_Dim_Customer_SCD2 (1).dtsx</PackageName>
+          <PackageName>PKG_03_Dim_Customer_SCD2.dtsx</PackageName>
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
@@ -98,7 +98,7 @@
       <DTS:ObjectData>
         <ExecutePackageTask>
           <UseProjectReference>True</UseProjectReference>
-          <PackageName>PKG_05_Fact_OrderFulfillment (1).dtsx</PackageName>
+          <PackageName>PKG_05_Fact_OrderFulfillment.dtsx</PackageName>
         </ExecutePackageTask>
       </DTS:ObjectData>
     </DTS:Executable>
@@ -250,39 +250,39 @@
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="115.2,41.6"
+          Size="115.333333333334,41.3333333333334"
           Id="Package\PKG_01"
           TopLeft="317.857143533777,38.2352940841323" />
         <NodeLayout
-          Size="115.2,41.6"
+          Size="115.333333333334,41.3333333333334"
           Id="Package\PKG_02"
           TopLeft="382.857143672145,131.529411649415" />
         <NodeLayout
-          Size="115.2,41.6"
+          Size="115.333333333334,41.3333333333334"
           Id="Package\PKG_03"
           TopLeft="343.571429302802,196.52941159244" />
         <NodeLayout
-          Size="115.2,41.6"
+          Size="115.333333333334,41.3333333333334"
           Id="Package\PKG_04"
           TopLeft="315.000000670552,279.117646814166" />
         <NodeLayout
-          Size="115.2,41.6"
-          Id="Package\PKG_06"
-          TopLeft="276.428572017015,382.352940841323" />
-        <NodeLayout
-          Size="115.2,41.6"
+          Size="115.333333333334,41.3333333333334"
           Id="Package\PKG_05"
           TopLeft="408.57142944117,455.764705482857" />
         <NodeLayout
-          Size="115.2,41.6"
+          Size="115.333333333334,41.3333333333334"
+          Id="Package\PKG_06"
+          TopLeft="276.428572017015,382.352940841323" />
+        <NodeLayout
+          Size="115.333333333334,41.3333333333334"
           Id="Package\PKG_07"
           TopLeft="605.000001287886,389.99999965815" />
         <NodeLayout
-          Size="115.2,41.6"
+          Size="115.333333333334,41.3333333333334"
           Id="Package\PKG_08"
           TopLeft="669.285715710448,285.99999974931" />
         <NodeLayout
-          Size="165.6,41.6"
+          Size="165.333333333334,41.3333333333334"
           Id="Package\SQL Update status"
           TopLeft="432.142858062776,342.364705608203" />
         <EdgeLayout

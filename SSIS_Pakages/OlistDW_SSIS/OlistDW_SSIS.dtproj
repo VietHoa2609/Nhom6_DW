@@ -30,10 +30,15 @@
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
+          <SSIS:Package SSIS:Name="Master.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="PKG_01_Staging.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="PKG_02_Dim_SCD1.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="PKG_03_Dim_Customer_SCD2.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="PKG_04_Fact_OrderItem.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="PKG_05_Fact_OrderFulfillment.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="PKG_06_Fact_Review.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="PKG_07_Fact_SellerRoute_Monthly.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="PKG_08_Fact_CustomerSegment_Monthly.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="CM_DW.conmgr" />
@@ -1972,6 +1977,23 @@
             </SSIS:Parameter>
           </SSIS:ProjectConnectionParameters>
           <SSIS:PackageInfo>
+            <SSIS:PackageMetaData SSIS:Name="Master.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{905F083D-47A5-4451-B4EC-9EF64F4D8447}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Master</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{881D62EE-C64A-4091-A295-D1D5C180DEE1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="PKG_01_Staging.dtsx">
               <SSIS:Properties>
                 <SSIS:Property SSIS:Name="ID">{6AEA2B18-09DB-4401-B585-B02B06D66D91}</SSIS:Property>
@@ -1995,10 +2017,112 @@
                 <SSIS:Property SSIS:Name="Name">Package1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">19</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{D1E0A8C2-AF88-4838-8A38-8AC344812428}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="PKG_03_Dim_Customer_SCD2.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{E1677316-6E7A-44ED-AC2C-90BE443BA0A1}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">PKG_03_Dim_Customer_SCD2</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">21</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{9DF25047-101F-447A-BEDF-6EF55B684684}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="PKG_04_Fact_OrderItem.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{FDD34EF7-B021-4C4C-9DDF-4C2C6CDA2CDE}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">PKG_04_Fact_OrderItem</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">7</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{3351379C-9E54-4194-B584-4CA83DA7F482}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="PKG_05_Fact_OrderFulfillment.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{3A22916E-9FB1-4E79-8BAC-AA14BBA7D377}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">PKG_05_Fact_OrderFulfillment</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">6</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{5994ED3E-FFBA-41A6-A5FA-62F27EFB22C8}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="PKG_06_Fact_Review.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{F65F5DDE-5B0C-4DDC-85C3-092B19039284}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">PKG_06_Fact_Review</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">4</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{07C3BCFE-D73B-4B1D-8DFD-2409F531D419}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="PKG_07_Fact_SellerRoute_Monthly.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{DD8AD8E6-C290-4270-9668-65B9C498963D}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">PKG_07_Fact_SellerRoute_Monthly</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{D134E12A-3A67-43E2-A1F0-1F801AB40728}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{6081D6BD-084F-4193-8947-8E26B9B600FE}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="PKG_08_Fact_CustomerSegment_Monthly.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{E83F87C4-1E95-4773-BD6D-E7D865497477}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">PKG_08_Fact_CustomerSegment_Monthly</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{29529E2B-5CB2-4FCC-A4DE-83287F2C88E8}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
