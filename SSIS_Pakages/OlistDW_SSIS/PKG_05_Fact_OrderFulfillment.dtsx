@@ -1,0 +1,862 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/29/2026 7:42:27 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MAYYY"
+  DTS:CreatorName="MAYYY\Hi"
+  DTS:DTSID="{3A22916E-9FB1-4E79-8BAC-AA14BBA7D377}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1066"
+  DTS:ObjectName="PKG_05_Fact_OrderFulfillment"
+  DTS:PackageType="5"
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{5994ED3E-FFBA-41A6-A5FA-62F27EFB22C8}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Load Fact Order Fulfillment"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{9AAB1711-D986-456C-A674-ECC940A36721}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Load Fact Order Fulfillment"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - tmp_fact_order_fulfillment"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[staging].[tmp_fact_order_fulfillment]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1258</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Connections[OleDbConnection]"
+                  connectionManagerID="{08AD23AF-71F0-4600-AA0D-365011B9EC71}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[CM_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[order_id]"
+                      cachedDataType="wstr"
+                      cachedLength="50"
+                      cachedName="order_id"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_id]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[customer_key]"
+                      cachedDataType="i4"
+                      cachedName="customer_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[customer_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[customer_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[primary_seller_key]"
+                      cachedDataType="i4"
+                      cachedName="primary_seller_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[primary_seller_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[primary_seller_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[order_date_key]"
+                      cachedDataType="i4"
+                      cachedName="order_date_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[order_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_date_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[approved_date_key]"
+                      cachedDataType="i4"
+                      cachedName="approved_date_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[approved_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[approved_date_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[shipped_date_key]"
+                      cachedDataType="i4"
+                      cachedName="shipped_date_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[shipped_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[shipped_date_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[delivered_date_key]"
+                      cachedDataType="i4"
+                      cachedName="delivered_date_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[delivered_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[delivered_date_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[estimated_delivery_date_key]"
+                      cachedDataType="i4"
+                      cachedName="estimated_delivery_date_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[estimated_delivery_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[estimated_delivery_date_key]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[days_to_approve]"
+                      cachedDataType="i4"
+                      cachedName="days_to_approve"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[days_to_approve]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_approve]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[days_to_ship]"
+                      cachedDataType="i4"
+                      cachedName="days_to_ship"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[days_to_ship]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_ship]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[days_to_deliver]"
+                      cachedDataType="i4"
+                      cachedName="days_to_deliver"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[days_to_deliver]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_deliver]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[total_days]"
+                      cachedDataType="i4"
+                      cachedName="total_days"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[total_days]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[total_days]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[is_delayed]"
+                      cachedDataType="bool"
+                      cachedName="is_delayed"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[is_delayed]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[is_delayed]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].Columns[order_status_key]"
+                      cachedDataType="i4"
+                      cachedName="order_status_key"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[order_status_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_status_key]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[order_id]"
+                      dataType="wstr"
+                      length="50"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[customer_key]"
+                      dataType="i4"
+                      name="customer_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[primary_seller_key]"
+                      dataType="i4"
+                      name="primary_seller_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[order_date_key]"
+                      dataType="i4"
+                      name="order_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[approved_date_key]"
+                      dataType="i4"
+                      name="approved_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[shipped_date_key]"
+                      dataType="i4"
+                      name="shipped_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[delivered_date_key]"
+                      dataType="i4"
+                      name="delivered_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[estimated_delivery_date_key]"
+                      dataType="i4"
+                      name="estimated_delivery_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[days_to_approve]"
+                      dataType="i4"
+                      name="days_to_approve" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[days_to_ship]"
+                      dataType="i4"
+                      name="days_to_ship" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[days_to_deliver]"
+                      dataType="i4"
+                      name="days_to_deliver" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[total_days]"
+                      dataType="i4"
+                      name="total_days" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[is_delayed]"
+                      dataType="bool"
+                      name="is_delayed" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input].ExternalColumns[order_status_key]"
+                      dataType="i4"
+                      name="order_status_key" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - Orders"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">WITH o AS (
+    SELECT order_id, customer_id, order_status,
+        TRY_CONVERT(DATETIME2(0), NULLIF(LTRIM(RTRIM(order_purchase_timestamp)),''))      AS purchase_ts,
+        TRY_CONVERT(DATETIME2(0), NULLIF(LTRIM(RTRIM(order_approved_at)),''))             AS approved_ts,
+        TRY_CONVERT(DATETIME2(0), NULLIF(LTRIM(RTRIM(order_delivered_carrier_date)),''))  AS carrier_ts,
+        TRY_CONVERT(DATETIME2(0), NULLIF(LTRIM(RTRIM(order_delivered_customer_date)),'')) AS delivered_ts,
+        TRY_CONVERT(DATETIME2(0), NULLIF(LTRIM(RTRIM(order_estimated_delivery_date)),'')) AS estimated_ts
+    FROM staging.stg_orders
+),
+seller_pick AS (   -- người bán của sản phẩm có price lớn nhất trong đơn
+    SELECT order_id, seller_id,
+           ROW_NUMBER() OVER (PARTITION BY order_id
+               ORDER BY TRY_CONVERT(DECIMAL(12,2), price) DESC,
+                        TRY_CONVERT(INT, order_item_id), seller_id) AS rn
+    FROM staging.stg_order_items
+)
+SELECT
+    o.order_id,
+    ISNULL(dc.customer_key, -1)       AS customer_key,
+    ISNULL(ds.seller_key, -1)         AS primary_seller_key,
+    dbo.fn_date_key(o.purchase_ts)    AS order_date_key,
+    dbo.fn_date_key(o.approved_ts)    AS approved_date_key,
+    dbo.fn_date_key(o.carrier_ts)     AS shipped_date_key,
+    dbo.fn_date_key(o.delivered_ts)   AS delivered_date_key,
+    dbo.fn_date_key(o.estimated_ts)   AS estimated_delivery_date_key,
+    CASE WHEN o.approved_ts &gt;= o.purchase_ts THEN DATEDIFF(DAY, o.purchase_ts, o.approved_ts) END AS days_to_approve,
+    CASE WHEN o.carrier_ts  &gt;= o.approved_ts THEN DATEDIFF(DAY, o.approved_ts, o.carrier_ts) END  AS days_to_ship,
+    CASE WHEN v.is_valid = 1 AND o.delivered_ts &gt;= o.carrier_ts
+         THEN DATEDIFF(DAY, o.carrier_ts, o.delivered_ts) END  AS days_to_deliver,
+    CASE WHEN v.is_valid = 1 AND o.delivered_ts &gt;= o.purchase_ts
+         THEN DATEDIFF(DAY, o.purchase_ts, o.delivered_ts) END AS total_days,
+    CAST(CASE WHEN v.is_valid = 1 AND o.estimated_ts IS NOT NULL
+              THEN CASE WHEN CAST(o.delivered_ts AS DATE) &gt; CAST(o.estimated_ts AS DATE)
+                        THEN 1 ELSE 0 END
+         END AS BIT)                  AS is_delayed,
+    ISNULL(st.order_status_key, -1)   AS order_status_key
+FROM o
+CROSS APPLY (SELECT CASE WHEN o.order_status = 'delivered' AND o.delivered_ts IS NOT NULL
+                         THEN 1 ELSE 0 END AS is_valid) v
+LEFT JOIN staging.stg_customers c  ON c.customer_id = o.customer_id
+LEFT JOIN dwh.dim_customer dc      ON dc.customer_unique_id = c.customer_unique_id
+                                  AND o.purchase_ts &gt;= dc.effective_from
+                                  AND o.purchase_ts &lt;  dc.effective_to
+LEFT JOIN seller_pick sp           ON sp.order_id = o.order_id AND sp.rn = 1
+LEFT JOIN dwh.dim_seller ds        ON ds.seller_id = sp.seller_id
+LEFT JOIN dwh.dim_order_status st  ON st.order_status = o.order_status;</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1258</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Connections[OleDbConnection]"
+                  connectionManagerID="{08AD23AF-71F0-4600-AA0D-365011B9EC71}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[CM_DW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_id]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      length="50"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_id]"
+                      name="order_id"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[customer_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[customer_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[customer_key]"
+                      name="customer_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[primary_seller_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[primary_seller_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[primary_seller_key]"
+                      name="primary_seller_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[order_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_date_key]"
+                      name="order_date_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[approved_date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[approved_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[approved_date_key]"
+                      name="approved_date_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[shipped_date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[shipped_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[shipped_date_key]"
+                      name="shipped_date_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[delivered_date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[delivered_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[delivered_date_key]"
+                      name="delivered_date_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[estimated_delivery_date_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[estimated_delivery_date_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[estimated_delivery_date_key]"
+                      name="estimated_delivery_date_key"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_approve]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[days_to_approve]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_approve]"
+                      name="days_to_approve"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_ship]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[days_to_ship]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_ship]"
+                      name="days_to_ship"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_deliver]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[days_to_deliver]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[days_to_deliver]"
+                      name="days_to_deliver"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[total_days]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[total_days]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[total_days]"
+                      name="total_days"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[is_delayed]"
+                      dataType="bool"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[is_delayed]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[is_delayed]"
+                      name="is_delayed"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_status_key]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[order_status_key]"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].Columns[order_status_key]"
+                      name="order_status_key"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[order_id]"
+                      dataType="wstr"
+                      length="50"
+                      name="order_id" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[customer_key]"
+                      dataType="i4"
+                      name="customer_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[primary_seller_key]"
+                      dataType="i4"
+                      name="primary_seller_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[order_date_key]"
+                      dataType="i4"
+                      name="order_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[approved_date_key]"
+                      dataType="i4"
+                      name="approved_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[shipped_date_key]"
+                      dataType="i4"
+                      name="shipped_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[delivered_date_key]"
+                      dataType="i4"
+                      name="delivered_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[estimated_delivery_date_key]"
+                      dataType="i4"
+                      name="estimated_delivery_date_key" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[days_to_approve]"
+                      dataType="i4"
+                      name="days_to_approve" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[days_to_ship]"
+                      dataType="i4"
+                      name="days_to_ship" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[days_to_deliver]"
+                      dataType="i4"
+                      name="days_to_deliver" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[total_days]"
+                      dataType="i4"
+                      name="total_days" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[is_delayed]"
+                      dataType="bool"
+                      name="is_delayed" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output].ExternalColumns[order_status_key]"
+                      dataType="i4"
+                      name="order_status_key" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      dataType="wstr"
+                      length="50"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[order_id]"
+                      name="order_id" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[customer_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[customer_key]"
+                      name="customer_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[primary_seller_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[primary_seller_key]"
+                      name="primary_seller_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[order_date_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[order_date_key]"
+                      name="order_date_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[approved_date_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[approved_date_key]"
+                      name="approved_date_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[shipped_date_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[shipped_date_key]"
+                      name="shipped_date_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[delivered_date_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[delivered_date_key]"
+                      name="delivered_date_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[estimated_delivery_date_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[estimated_delivery_date_key]"
+                      name="estimated_delivery_date_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[days_to_approve]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[days_to_approve]"
+                      name="days_to_approve" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[days_to_ship]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[days_to_ship]"
+                      name="days_to_ship" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[days_to_deliver]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[days_to_deliver]"
+                      name="days_to_deliver" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[total_days]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[total_days]"
+                      name="total_days" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[is_delayed]"
+                      dataType="bool"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[is_delayed]"
+                      name="is_delayed" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[order_status_key]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[order_status_key]"
+                      name="order_status_key" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Load Fact Order Fulfillment.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Load Fact Order Fulfillment\SRC - Orders.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Merge fact"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C8597037-C7B8-4ADB-8DC4-BDCCB967B0FF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Merge fact"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{08AD23AF-71F0-4600-AA0D-365011B9EC71}"
+          SQLTask:SqlStatementSource="MERGE dwh.fact_order_fulfillment AS t&#xA;USING staging.tmp_fact_order_fulfillment AS s ON t.order_id = s.order_id&#xA;WHEN MATCHED AND (&#xA;       t.order_date_key &lt;&gt; s.order_date_key OR t.approved_date_key &lt;&gt; s.approved_date_key&#xA;    OR t.shipped_date_key &lt;&gt; s.shipped_date_key OR t.delivered_date_key &lt;&gt; s.delivered_date_key&#xA;    OR t.estimated_delivery_date_key &lt;&gt; s.estimated_delivery_date_key&#xA;    OR t.order_status_key &lt;&gt; s.order_status_key&#xA;    OR ISNULL(t.days_to_approve, -999999) &lt;&gt; ISNULL(s.days_to_approve, -999999)&#xA;    OR ISNULL(t.days_to_ship,    -999999) &lt;&gt; ISNULL(s.days_to_ship,    -999999)&#xA;    OR ISNULL(t.days_to_deliver, -999999) &lt;&gt; ISNULL(s.days_to_deliver, -999999)&#xA;    OR ISNULL(t.total_days,      -999999) &lt;&gt; ISNULL(s.total_days,      -999999)&#xA;    OR ISNULL(CAST(t.is_delayed AS INT), -1) &lt;&gt; ISNULL(CAST(s.is_delayed AS INT), -1))&#xA;THEN UPDATE SET&#xA;    order_date_key = s.order_date_key, approved_date_key = s.approved_date_key,&#xA;    shipped_date_key = s.shipped_date_key, delivered_date_key = s.delivered_date_key,&#xA;    estimated_delivery_date_key = s.estimated_delivery_date_key,&#xA;    order_status_key = s.order_status_key,&#xA;    days_to_approve = s.days_to_approve, days_to_ship = s.days_to_ship,&#xA;    days_to_deliver = s.days_to_deliver, total_days = s.total_days,&#xA;    is_delayed = s.is_delayed&#xA;WHEN NOT MATCHED BY TARGET THEN&#xA;    INSERT (order_id, customer_key, primary_seller_key, order_date_key, approved_date_key,&#xA;            shipped_date_key, delivered_date_key, estimated_delivery_date_key,&#xA;            days_to_approve, days_to_ship, days_to_deliver, total_days, is_delayed, order_status_key)&#xA;    VALUES (s.order_id, s.customer_key, s.primary_seller_key, s.order_date_key, s.approved_date_key,&#xA;            s.shipped_date_key, s.delivered_date_key, s.estimated_delivery_date_key,&#xA;            s.days_to_approve, s.days_to_ship, s.days_to_deliver, s.total_days, s.is_delayed, s.order_status_key);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Truncate tmp"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A6DABC0C-F8D3-472C-A43C-5E31CBC180CA}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Truncate tmp"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{08AD23AF-71F0-4600-AA0D-365011B9EC71}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE staging.tmp_fact_order_fulfillment;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{1DE007B0-7B60-4154-A3A2-B40EE491458C}"
+      DTS:From="Package\SQL - Truncate tmp"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Load Fact Order Fulfillment" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B7107A32-3C70-4C38-9A3B-29E96BDAE26E}"
+      DTS:From="Package\DFT - Load Fact Order Fulfillment"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Merge fact" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="236,41.6"
+          Id="Package\DFT - Load Fact Order Fulfillment"
+          TopLeft="99.2857144970674,121.588235187541" />
+        <NodeLayout
+          Size="171.2,41.6"
+          Id="Package\SQL - Truncate tmp"
+          TopLeft="133.571428855767,23.7058823321621" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="218.228571676417,65.3058823321621">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56.2823528553789"
+              Start="0,0"
+              End="0,48.7823528553789">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.7823528553789" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="157.6,45.6"
+          Id="Package\SQL - Merge fact"
+          TopLeft="131.428571708348,214.117646871141" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="213.757143102708,163.188235187541">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.9294116836001"
+              Start="0,0"
+              End="0,43.4294116836001">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.4294116836001" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Load Fact Order Fulfillment">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="139.2,41.6"
+          Id="Package\DFT - Load Fact Order Fulfillment\SRC - Orders"
+          TopLeft="84.9999987334013,35.9999994635582" />
+        <NodeLayout
+          Size="233.6,41.6"
+          Id="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment"
+          TopLeft="38.9999992485557,180.235291603527" />
+        <EdgeLayout
+          Id="Package\DFT - Load Fact Order Fulfillment.Paths[OLE DB Source Output]"
+          TopLeft="155.199998990978,77.5999994635582">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,102.635292139969"
+              Start="0,0"
+              End="0,95.1352921399691">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,95.1352921399691" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Order Fulfillment\DST - tmp_fact_order_fulfillment">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Fact Order Fulfillment\SRC - Orders">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

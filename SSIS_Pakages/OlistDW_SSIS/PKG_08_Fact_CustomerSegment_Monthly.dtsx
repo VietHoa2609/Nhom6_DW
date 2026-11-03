@@ -1,0 +1,58 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/3/2026 3:20:51 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-26R2SQF"
+  DTS:CreatorName="DESKTOP-26R2SQF\tobii"
+  DTS:DTSID="{E83F87C4-1E95-4773-BD6D-E7D865497477}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PKG_08_Fact_CustomerSegment_Monthly"
+  DTS:PackageType="5"
+  DTS:VersionBuild="5"
+  DTS:VersionGUID="{29529E2B-5CB2-4FCC-A4DE-83287F2C88E8}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Rebuild RFM snapshot"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{AA925D7C-05D3-4E4B-BC54-5FA1C3EC7835}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Rebuild RFM snapshot"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{08AD23AF-71F0-4600-AA0D-365011B9EC71}"
+          SQLTask:SqlStatementSource="SET NOCOUNT ON;&#xA;DROP TABLE IF EXISTS #vo; DROP TABLE IF EXISTS #act; DROP TABLE IF EXISTS #grid;&#xA;DROP TABLE IF EXISTS #cum; DROP TABLE IF EXISTS #p80;&#xA;&#xA;SELECT cu.customer_unique_id,&#xA;       (ful.order_date_key/100)*100+1 AS month_key,&#xA;       d.full_date AS order_date,&#xA;       ISNULL(it.items,0) AS items, ISNULL(it.spent,0) AS spent, fr.review_score&#xA;INTO #vo&#xA;FROM dwh.fact_order_fulfillment ful&#xA;JOIN dwh.dim_customer cu ON cu.customer_key = ful.customer_key&#xA;JOIN dwh.dim_date d      ON d.date_key = ful.order_date_key&#xA;LEFT JOIN (SELECT order_id, COUNT(*) AS items, SUM(price+freight_value) AS spent&#xA;           FROM dwh.fact_order_item GROUP BY order_id) it ON it.order_id = ful.order_id&#xA;LEFT JOIN dwh.fact_review fr ON fr.order_id = ful.order_id&#xA;WHERE ful.is_delayed IS NOT NULL;&#xA;&#xA;SELECT customer_unique_id, month_key,&#xA;       COUNT(*) AS monthly_orders, SUM(items) AS monthly_items, SUM(spent) AS monthly_spent,&#xA;       AVG(CAST(review_score AS DECIMAL(5,2))) AS avg_review_score,&#xA;       MAX(order_date) AS last_order_date&#xA;INTO #act FROM #vo GROUP BY customer_unique_id, month_key;&#xA;&#xA;SELECT c.customer_unique_id, m.date_key AS month_key, EOMONTH(m.full_date) AS month_end&#xA;INTO #grid&#xA;FROM (SELECT customer_unique_id, MIN(month_key) AS first_month FROM #act GROUP BY customer_unique_id) c&#xA;JOIN dwh.dim_date m ON DAY(m.full_date) = 1 AND m.date_key BETWEEN c.first_month AND 20180801;&#xA;&#xA;SELECT g.customer_unique_id, g.month_key, g.month_end,&#xA;       ISNULL(a.monthly_orders,0) AS monthly_orders,&#xA;       ISNULL(a.monthly_items,0)  AS monthly_items,&#xA;       ISNULL(a.monthly_spent,0)  AS monthly_spent,&#xA;       a.avg_review_score,&#xA;       SUM(ISNULL(a.monthly_orders,0)) OVER (PARTITION BY g.customer_unique_id ORDER BY g.month_key ROWS UNBOUNDED PRECEDING) AS frequency_count,&#xA;       SUM(ISNULL(a.monthly_spent,0))  OVER (PARTITION BY g.customer_unique_id ORDER BY g.month_key ROWS UNBOUNDED PRECEDING) AS monetary_value,&#xA;       MAX(a.last_order_date)          OVER (PARTITION BY g.customer_unique_id ORDER BY g.month_key ROWS UNBOUNDED PRECEDING) AS last_purchase&#xA;INTO #cum&#xA;FROM #grid g LEFT JOIN #act a&#xA;  ON a.customer_unique_id = g.customer_unique_id AND a.month_key = g.month_key;&#xA;&#xA;SELECT DISTINCT month_key,&#xA;       PERCENTILE_CONT(0.8) WITHIN GROUP (ORDER BY monetary_value) OVER (PARTITION BY month_key) AS p80&#xA;INTO #p80&#xA;FROM #cum WHERE DATEDIFF(DAY, last_purchase, month_end) &lt;= 90;&#xA;&#xA;DECLARE @from INT;&#xA;SELECT @from = MIN(x.month_key)&#xA;FROM (SELECT month_key, SUM(monthly_orders) AS o, SUM(monthly_spent) AS s FROM #act GROUP BY month_key) x&#xA;LEFT JOIN (SELECT month_key, SUM(monthly_orders) AS o, SUM(monthly_spent) AS s&#xA;           FROM dwh.fact_customer_segment_monthly GROUP BY month_key) y ON y.month_key = x.month_key&#xA;WHERE y.month_key IS NULL OR y.o &lt;&gt; x.o OR y.s &lt;&gt; x.s;&#xA;&#xA;IF @from IS NULL RETURN;&#xA;&#xA;BEGIN TRAN;&#xA;DELETE FROM dwh.fact_customer_segment_monthly WHERE month_key &gt;= @from;&#xA;&#xA;INSERT INTO dwh.fact_customer_segment_monthly&#xA;      (customer_key, month_key, customer_unique_id, monthly_orders, monthly_items, monthly_spent,&#xA;       avg_review_score, recency_days, frequency_count, monetary_value, rfm_segment)&#xA;SELECT ISNULL(v.customer_key, -1), c.month_key, c.customer_unique_id,&#xA;       c.monthly_orders, c.monthly_items, c.monthly_spent, c.avg_review_score,&#xA;       DATEDIFF(DAY, c.last_purchase, c.month_end),&#xA;       c.frequency_count, c.monetary_value,&#xA;       CASE WHEN DATEDIFF(DAY, c.last_purchase, c.month_end) &gt; 180 THEN 'Churned'&#xA;            WHEN DATEDIFF(DAY, c.last_purchase, c.month_end) &gt; 90  THEN 'At-risk'&#xA;            WHEN c.monetary_value &gt;= p.p80                          THEN 'VIP'&#xA;            ELSE 'Regular' END&#xA;FROM #cum c&#xA;JOIN #p80 p ON p.month_key = c.month_key&#xA;OUTER APPLY (SELECT TOP 1 d.customer_key FROM dwh.dim_customer d&#xA;             WHERE d.customer_unique_id = c.customer_unique_id AND d.effective_from &lt;= c.month_end&#xA;             ORDER BY d.effective_from DESC) v&#xA;WHERE c.month_key &gt;= @from;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="212,41.6"
+          Id="Package\SQL - Rebuild RFM snapshot"
+          TopLeft="320.000000681196,82.5882352217259" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

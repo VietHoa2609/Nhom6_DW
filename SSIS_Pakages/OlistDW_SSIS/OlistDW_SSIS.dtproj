@@ -32,6 +32,8 @@
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="PKG_01_Staging.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="PKG_02_Dim_SCD1.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="PKG_03_Dim_Customer_SCD2.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="PKG_05_Fact_OrderFulfillment.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="CM_DW.conmgr" />

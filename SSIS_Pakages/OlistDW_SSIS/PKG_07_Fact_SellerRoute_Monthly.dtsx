@@ -1,0 +1,58 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="11/3/2026 3:16:56 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-26R2SQF"
+  DTS:CreatorName="DESKTOP-26R2SQF\tobii"
+  DTS:DTSID="{DD8AD8E6-C290-4270-9668-65B9C498963D}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PKG_07_Fact_SellerRoute_Monthly"
+  DTS:PackageType="5"
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{6081D6BD-084F-4193-8947-8E26B9B600FE}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Rebuild affected months"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9F46EBC5-6327-4A1E-BF77-5926D38A767A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Rebuild affected months"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{08AD23AF-71F0-4600-AA0D-365011B9EC71}"
+          SQLTask:SqlStatementSource="SET NOCOUNT ON;&#xA;DROP TABLE IF EXISTS #calc; DROP TABLE IF EXISTS #aff;&#xA;&#xA;;WITH os AS (&#xA;    SELECT f.order_id, f.seller_key, f.route_key,&#xA;           (f.order_date_key/100)*100+1 AS month_key,&#xA;           COUNT(*) AS items, SUM(f.price) AS price_sum, SUM(f.freight_value) AS freight_sum&#xA;    FROM dwh.fact_order_item f&#xA;    GROUP BY f.order_id, f.seller_key, f.route_key, (f.order_date_key/100)*100+1&#xA;)&#xA;SELECT os.seller_key, os.route_key, os.month_key,&#xA;       COUNT(*)                                                         AS total_orders,&#xA;       SUM(os.items)                                                    AS total_items,&#xA;       SUM(CASE WHEN ful.is_delayed IS NOT NULL THEN os.price_sum   ELSE 0 END) AS total_revenue,&#xA;       SUM(CASE WHEN ful.is_delayed IS NOT NULL THEN os.freight_sum ELSE 0 END) AS total_freight_value,&#xA;       SUM(CASE WHEN ful.is_delayed IS NOT NULL THEN 1 ELSE 0 END)      AS total_orders_delivered,&#xA;       SUM(CASE WHEN ful.is_delayed = 0 THEN 1 ELSE 0 END)              AS on_time_orders,&#xA;       SUM(CASE WHEN ful.is_delayed IS NOT NULL THEN ISNULL(ful.total_days,0) ELSE 0 END) AS total_delivery_days,&#xA;       COUNT(fr.review_score)                                           AS total_reviewed_orders,&#xA;       ISNULL(SUM(fr.review_score),0)                                   AS total_review_score&#xA;INTO #calc&#xA;FROM os&#xA;JOIN dwh.fact_order_fulfillment ful ON ful.order_id = os.order_id&#xA;LEFT JOIN dwh.fact_review fr        ON fr.order_id  = os.order_id&#xA;GROUP BY os.seller_key, os.route_key, os.month_key;&#xA;&#xA;SELECT c.month_key INTO #aff&#xA;FROM (SELECT month_key, COUNT(*) n, SUM(total_items) i, SUM(total_revenue) r,&#xA;             SUM(total_orders_delivered) d, SUM(on_time_orders) ot, SUM(total_review_score) s&#xA;      FROM #calc GROUP BY month_key) c&#xA;LEFT JOIN (SELECT month_key, COUNT(*) n, SUM(total_items) i, SUM(total_revenue) r,&#xA;                  SUM(total_orders_delivered) d, SUM(on_time_orders) ot, SUM(total_review_score) s&#xA;           FROM dwh.fact_seller_route_monthly GROUP BY month_key) t&#xA;       ON t.month_key = c.month_key&#xA;WHERE t.month_key IS NULL OR t.n&lt;&gt;c.n OR t.i&lt;&gt;c.i OR t.r&lt;&gt;c.r OR t.d&lt;&gt;c.d OR t.ot&lt;&gt;c.ot OR t.s&lt;&gt;c.s;&#xA;&#xA;BEGIN TRAN;&#xA;DELETE s FROM dwh.fact_seller_route_monthly s JOIN #aff a ON a.month_key = s.month_key;&#xA;&#xA;INSERT INTO dwh.fact_seller_route_monthly&#xA;      (seller_key, route_key, month_key, total_orders, total_items, total_revenue,&#xA;       total_freight_value, total_orders_delivered, on_time_orders, total_delivery_days,&#xA;       total_reviewed_orders, total_review_score)&#xA;SELECT c.seller_key, c.route_key, c.month_key, c.total_orders, c.total_items, c.total_revenue,&#xA;       c.total_freight_value, c.total_orders_delivered, c.on_time_orders, c.total_delivery_days,&#xA;       c.total_reviewed_orders, c.total_review_score&#xA;FROM #calc c JOIN #aff a ON a.month_key = c.month_key;&#xA;COMMIT;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="222.4,41.6"
+          Id="Package\SQL - Rebuild affected months"
+          TopLeft="320.000000681196,57.3529411261985" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
